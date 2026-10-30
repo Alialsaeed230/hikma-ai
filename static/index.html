@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Hikma AI | حكمة</title>
+<meta name="description" content="Hikma AI, a multilingual assistant for Shia Islamic knowledge.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+<symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></symbol>
+<symbol id="i-set" viewBox="0 0 24 24"><path d="M4 7h9M17 7h3M4 17h3M11 17h9"/><circle cx="15" cy="7" r="2"/><circle cx="9" cy="17" r="2"/></symbol>
+<symbol id="i-send" viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></symbol>
+<symbol id="i-stop" viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="2.5" fill="currentColor" stroke="none"/></symbol>
+<symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/></symbol>
+<symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7"/></symbol>
+<symbol id="i-retry" viewBox="0 0 24 24"><path d="M4 12a8 8 0 0 1 14-5.3L20 9M20 4v5h-5M20 12a8 8 0 0 1-14 5.3L4 15M4 20v-5h5"/></symbol>
+<symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 12h10l1-12M9 7V4h6v3"/></symbol>
+<symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6"/><path d="M20 20l-4-4"/></symbol>
+<symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+<symbol id="i-chat" viewBox="0 0 24 24"><path d="M5 5h14a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1h-8l-4 4v-4H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z"/></symbol>
+<symbol id="i-down" viewBox="0 0 24 24"><path d="M12 4v11M7 11l5 5 5-5M5 20h14"/></symbol>
+</defs></svg>
+
+<div class="app">
+  <aside id="side" aria-label="Chats">
+    <div class="brand"><span class="mark" aria-hidden="true">ح</span><span>Hikma AI</span><button class="ib x" id="closeSide" aria-label="Close"><svg class="ic"><use href="#i-x"/></svg></button></div>
+    <button class="new" id="new"><svg class="ic"><use href="#i-plus"/></svg><span data-t="new"></span></button>
+    <label class="find"><svg class="ic"><use href="#i-search"/></svg><input id="q" data-p="search" autocomplete="off"></label>
+    <nav id="list"></nav>
+    <button class="set" id="openSet"><svg class="ic"><use href="#i-set"/></svg><span data-t="settings"></span></button>
+  </aside>
+  <div id="scrim"></div>
+  <main>
+    <header><button class="ib" id="menu" aria-label="Menu"><svg class="ic"><use href="#i-menu"/></svg></button><span id="title"></span></header>
+    <div id="scroll"><div class="col">
+      <section id="welcome" class="welcome">
+        <h1>حكمة</h1><h2>Hikma AI</h2><p data-t="hello"></p>
+        <div class="ideas" id="ideas"></div>
+      </section>
+      <div id="msgs" aria-live="polite"></div>
+    </div></div>
+    <footer><div class="col">
+      <form id="form"><textarea id="in" rows="1" data-p="ph" dir="auto" aria-label="Message"></textarea><button type="submit" id="send" aria-label="Send"><svg class="ic"><use href="#i-send"/></svg></button></form>
+      <p class="note" data-t="note"></p>
+    </div></footer>
+  </main>
+</div>
+<dialog id="dlg"><div class="dh"><span data-t="settings"></span><button class="ib" id="closeSet" aria-label="Close"><svg class="ic"><use href="#i-x"/></svg></button></div><div class="db" id="sb"></div></dialog>
+<script src="/static/js/app.js"></script>
+</body>
+</html>
