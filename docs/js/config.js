@@ -1,4 +1,1 @@
-// Where the Hikma AI backend lives.
-// Local use: leave empty "" (the backend serves this site itself).
-// GitHub Pages: put your backend's HTTPS address, e.g. "https://https://hikma-ai-nktb.onrender.com/"
-window.HIKMA_API = "";
+window.HIKMA_API = "https://hikma-ai-nktb.onrender.com"; 
