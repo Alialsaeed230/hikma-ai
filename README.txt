@@ -22,3 +22,11 @@ Use HTTPS (nginx or Caddy). Behind a proxy, run uvicorn with
 --proxy-headers so rate limiting sees real IPs. Never expose port 11434.
 Chats are saved in each visitor's own browser (localStorage), not on your server.
 Fonts load from Google Fonts; self-host them if your server has no internet.
+
+OTHER BACKEND HOSTS (Render, Railway, Fly.io, ...)
+Start command:  python -m uvicorn main:app --host 0.0.0.0 --port $PORT
+Environment variables:
+  ALLOWED_ORIGIN=https://alialsaeed230.github.io
+  OLLAMA_URL=https://ollama.com/api/chat      (call Ollama's cloud directly)
+  OLLAMA_API_KEY=your key (set as a secret on the host, never commit it)
+  MODEL=the cloud model name shown on ollama.com

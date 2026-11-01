@@ -12,6 +12,7 @@ from pydantic import BaseModel
 BASE = Path(__file__).parent
 OLLAMA_URL = os.getenv("OLLAMA_URL", "http://localhost:11434/api/chat")
 MODEL = os.getenv("MODEL", "gemma4:31b-cloud")
+API_KEY = os.getenv("OLLAMA_API_KEY", "")  # only for calling ollama.com directly
 ORIGINS = [o.strip() for o in os.getenv("ALLOWED_ORIGIN", "http://localhost:8000").split(",")]
 RATE = int(os.getenv("RATE_PER_MIN", "20"))
 PROMPT = (BASE / "prompt.txt").read_text(encoding="utf-8")
@@ -63,21 +64,29 @@ async def chat(req: Req, request: Request):
     async def stream():
         try:
             async with httpx.AsyncClient(timeout=None) as c:
-                async with c.stream("POST", OLLAMA_URL, json=payload) as r:
+                async with c.stream("POST", OLLAMA_URL, json=payload, headers={"Authorization": f"Bearer {API_KEY}"} if API_KEY else {}) as r:
+                    if r.status_code != 200:
+                        detail = (await r.aread()).decode("utf-8", "ignore")[:300]
+                        yield f"[Backend error {r.status_code} from Ollama: {detail}]"
+                        return
                     async for line in r.aiter_lines():
                         if line:
-                            piece = json.loads(line).get("message", {}).get("content", "")
+                            data = json.loads(line)
+                            if data.get("error"):
+                                yield f"[Ollama error: {data['error']}]"
+                                return
+                            piece = data.get("message", {}).get("content", "")
                             if piece:
                                 yield piece
-        except Exception:
-            yield "\n[Error: the model is unavailable. Please try again.]"
+        except Exception as e:
+            yield f"\n[Error: cannot reach the model ({type(e).__name__}). Check OLLAMA_URL.]"
 
     return StreamingResponse(stream(), media_type="text/plain; charset=utf-8")
 
 
 @app.get("/health")
 def health():
-    return {"ok": True, "model": MODEL}
+    return {"ok": True, "model": MODEL, "url": OLLAMA_URL, "key_set": bool(API_KEY)}
 
 
 # Serves the website (docs/) when running locally. Keep this last.
